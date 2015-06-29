@@ -13,17 +13,15 @@
         var marked = false;
         return function (actionIDs, callback) {
             if (!marked) {
-                jQuery.ajax({
-                    method: "PUT",
-                    url: "{% url 'mark_seen' %}",
-                    data: {ids: actionIDs}
-                }).success(function () {
-                    marked = true;
-                }).always(function (data, textStatus, errorThrown) {
-                    if (typeof callback != "undefined") {
-                        callback(data, textStatus, errorThrown);
-                    }
-                });
+                jQuery.post("{% url 'mark_seen' %}",
+                        {ids: actionIDs}
+                ).success(function () {
+                            marked = true;
+                        }).always(function (data, textStatus, errorThrown) {
+                            if (typeof callback != "undefined") {
+                                callback(data, textStatus, errorThrown);
+                            }
+                        });
 
             }
         }

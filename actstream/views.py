@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.csrf import csrf_exempt
 
 from actstream import actions, models, compat
-
+import json
 
 User = compat.get_user_model()
 
@@ -121,8 +121,7 @@ def model(request, content_type_id):
 
 
 def mark_seen(request):
-    if request.method != "PUT":
+    if request.method != "POST":
         return HttpResponse(status=400)
-    data = QueryDict(request.body)
-    models.Action.objects.filter(id__in=data["ids"]).update(seen=True)
+    models.Action.objects.filter(id__in=json.loads(request.POST["ids"])).update(seen=True)
     return HttpResponse(status=200)
