@@ -97,6 +97,8 @@ class Action(models.Model):
 
     public = models.BooleanField(default=True, db_index=True)
 
+    seen = models.BooleanField(default=False, db_index=True)
+
     objects = actstream_settings.get_action_manager()
 
     class Meta:
