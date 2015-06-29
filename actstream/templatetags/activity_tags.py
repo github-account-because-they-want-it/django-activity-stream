@@ -200,6 +200,11 @@ def activity_stream(context, stream_type, *args, **kwargs):
     return ''
 
 
+@register.filter
+def stream_ids(stream):
+    return ','.join([action.id for action in stream])
+
+
 register.filter(activity_stream)
 register.filter(is_following)
 register.tag(display_action)
