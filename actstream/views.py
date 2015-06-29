@@ -1,13 +1,13 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, QueryDict
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
 from django.views.decorators.csrf import csrf_exempt
 
 from actstream import actions, models, compat
-import json
+
 
 User = compat.get_user_model()
 
@@ -123,6 +123,6 @@ def model(request, content_type_id):
 def mark_seen(request):
     if request.method != "PUT":
         return HttpResponse(status=400)
-    data = json.loads(request.body)
+    data = QueryDict(request.body)
     models.Action.objects.filter(id__in=data["ids"]).update(seen=True)
     return HttpResponse(status=200)
