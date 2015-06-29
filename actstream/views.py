@@ -117,3 +117,10 @@ def model(request, content_type_id):
         'action_list': models.model_stream(model_class), 'ctype': ctype,
         'actor': model_class
     }, context_instance=RequestContext(request))
+
+
+def mark_seen(request):
+    if request.method != "PUT":
+        return HttpResponse(status=400)
+    models.Action.objects.filter(id__in=request.PUT["ids"]).update(seen=True)
+    return HttpResponse(status=200)

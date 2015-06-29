@@ -50,5 +50,6 @@ urlpatterns = patterns('actstream.views',
 
     url(r'^detail/(?P<action_id>[^/]+)/$', 'detail', name='actstream_detail'),
     url(r'^(?P<username>[^/]+)/$', 'user', name='actstream_user'),
+    url(r'mark_seen', "mark_seen", name="mark_seen"),
     url(r'^$', 'stream', name='actstream'),
 )

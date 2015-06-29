@@ -1,0 +1,15 @@
+{# requires jQuery #}
+{% load static %}
+<script>
+    function markSeen(actionIDs, callback) {
+        jQuery.ajax({
+            method: "PUT",
+            url: "{% url 'mark_seen' %}",
+            data: {ids: actionIDs}
+        }).always(function (data, textStatus, errorThrown) {
+            if (typeof callback != "undefined") {
+                callback(data, textStatus, errorThrown);
+            }
+        });
+    }
+</script>
