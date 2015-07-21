@@ -202,7 +202,7 @@ def activity_stream(context, stream_type, *args, **kwargs):
 
 @register.filter
 def stream_ids(stream):
-    return ','.join([action.id for action in stream])
+    return ','.join([str(action.id) for action in stream])
 
 
 register.filter(activity_stream)
